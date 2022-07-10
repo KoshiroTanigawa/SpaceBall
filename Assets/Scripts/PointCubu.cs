@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Broken : ItemBase
+public class PointCubu : ItemBase
 {
-    public int scorepoint = 10;
+    public int _scorepoint = 10;
 
     public override void Effect()
     {
         GameObject gm = GameObject.Find("GameManager");
-        gm.GetComponent<GameManager>().AddScore(scorepoint);
+        gm.GetComponent<GameManager>().AddScore(_scorepoint);
     }
 }

@@ -6,20 +6,19 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int life;
-    public GameObject ballPrefab;
-    public GameObject restartButton;
-    public Button restart;
-    public Text gameover;
-    //public Canvas canvas1;
-    public Canvas canvas2;
-    private int score;
-    public float leftTime;
-    private Text textScore;
-    private Text textLife;
-    private Text textTimer;
-    public Text textClear;
-    private bool inGame;
+    public int _life;
+    public GameObject _ballPrefab;
+    public GameObject _restartButton;
+    public Button _restart;
+    public Text _gameover;
+    public Canvas _canvas2;
+    private int _score;
+    public float _leftTime;
+    private Text _textScore;
+    private Text _textLife;
+    private Text _textTimer;
+    public Text _textClear;
+    private bool _inGame;
 
     private AudioSource audioSource;
     public AudioClip overSound;
@@ -28,94 +27,92 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        life = 3;
-        restart.enabled = false;
-        gameover.enabled = false;
-        //canvas1.enabled = false;
-        textClear.enabled = false;
-        score = 0;
-        textScore = GameObject.Find("Score").GetComponent<Text>();
-        textLife = GameObject.Find("BallLife").GetComponent<Text>();
-        textTimer = GameObject.Find("TimeText").GetComponent<Text>();
+        _restart.enabled = false;
+        _gameover.enabled = false;
+        _textClear.enabled = false;
+        _score = 0;
+        _textScore = GameObject.Find("Score").GetComponent<Text>();
+        _textLife = GameObject.Find("BallLife").GetComponent<Text>();
+        _textTimer = GameObject.Find("TimeText").GetComponent<Text>();
         audioSource = gameObject.AddComponent<AudioSource>();
-        SetScoreText(score);
-        SetLifeText(life);
-        inGame = true;
-        restartButton.SetActive(false);
+        SetScoreText(_score);
+        SetLifeText(_life);
+        _inGame = true;
+        _restartButton.SetActive(false);
     }
 
     private void SetScoreText(int score)
     {
-        textScore.text = "Score:" + score.ToString();
+        _textScore.text = "Score:" + score.ToString();
     }
 
     public void AddScore(int point)
     {
-        if (inGame)
+        if (_inGame)
         {
-            score += point;
-            SetScoreText(score);
+            _score += point;
+            SetScoreText(_score);
         }
     }
 
     private void SetLifeText(int life)
     {
-        textLife.text = "Ball :" + life.ToString();
+        _textLife.text = "Ball :" + life.ToString();
     }
 
     public bool IsInGame()
     {
-        return inGame;
+        return _inGame;
     }
 
     void Update()
     {
-        if (inGame)
+        if (_inGame)
         {
             GameObject targetObj = GameObject.FindWithTag("Target");
             if (targetObj == null)
             {
                 audioSource.PlayOneShot(clearSound);
-                textClear.enabled = true;
-                inGame = false;
+                _textClear.enabled = true;
+                _inGame = false;
             }
 
-            leftTime -= Time.deltaTime;
-            textTimer.text = "Time :" + (leftTime > 0f ? leftTime.ToString("0.00") : "0.00");
+            _leftTime -= Time.deltaTime;
+            _textTimer.text = "Time :" + (_leftTime > 0f ? _leftTime.ToString("0.00") : "0.00");
 
-            if (leftTime < 0f)
+            if (_leftTime < 0f)
             {
                 audioSource.PlayOneShot(overSound);
-                restartButton.SetActive(true);
-                restart.enabled = true;
-                gameover.enabled = true;
+                _restartButton.SetActive(true);
+                _restart.enabled = true;
+                _gameover.enabled = true;
                 //canvas1.enabled = true;
-                canvas2.enabled = false;
-                inGame = false;
+                _canvas2.enabled = false;
+                _inGame = false;
             }
 
             GameObject ballObj = GameObject.Find("Ball");
             if (ballObj == null)
             {
-                --life;
-                SetLifeText(life);
+                --_life;
+                SetLifeText(_life);
 
-                if (life > 0)
+                if (_life > 0)
                 {
-                    GameObject newBall = Instantiate(ballPrefab);
-                    newBall.name = ballPrefab.name;
+                    GameObject newBall = Instantiate(_ballPrefab);
+                    newBall.name = _ballPrefab.name;
                 }
 
                 else
                 {
                     audioSource.PlayOneShot(overSound);
-                    life = 0;
-                    restartButton.SetActive(true);
-                    restart.enabled = true;
-                    gameover.enabled = true;
+                    _life = 0;
+                    _restartButton.SetActive(true);
+                    _restart.enabled = true;
+                    _gameover.enabled = true;
                     //canvas1.enabled = true;
-                    canvas2.enabled = false;
-                    inGame = false;
+                    _canvas2.enabled = false;
+                    _inGame = false;
                 }
             }
         }

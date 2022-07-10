@@ -8,7 +8,7 @@ public class ChangeColorBlue : MonoBehaviour
     {
         if (other.gameObject.tag == "Ball")
         {
-            GetComponent<Renderer>().material.color = Color.blue;
+            GetComponent<Renderer>().material.color = Color.red;
         }
     }
 }

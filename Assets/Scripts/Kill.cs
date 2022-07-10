@@ -8,7 +8,7 @@ public class Kill : MonoBehaviour
     {
         if (other.gameObject.tag == "Ball")
         {
-            Destroy(other.gameObject, 0.1f);
+            Destroy(other.gameObject, 0.2f);
         }
     }    
 }

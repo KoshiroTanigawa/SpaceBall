@@ -10,7 +10,6 @@ public class SoundControler : MonoBehaviour
     public AudioClip sound02;
     public AudioClip sound03;
     public AudioClip sound04;
-    public AudioClip sound05;
 
     void Start()
     {
@@ -39,11 +38,6 @@ public class SoundControler : MonoBehaviour
             else if (other.gameObject.tag == "ResetWall")
             {
                 audio.PlayOneShot(sound04);
-            }
-
-            else if (other.gameObject.tag == "Target")
-            {
-                audio.PlayOneShot(sound05);
             }
     }
 }
