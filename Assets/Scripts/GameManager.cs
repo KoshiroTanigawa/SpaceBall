@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public int _life;
     private int _score;
     public float _leftTime;
-    static int highScore = 0;
+    static int _highScore = 0;
 
     public GameObject _ballPrefab;
     public GameObject _restartButton;
     public GameObject _menuButton;
+    public GameObject _NextButton;
 
     public Button _restart;
 
@@ -56,9 +58,10 @@ public class GameManager : MonoBehaviour
 
         SetScoreText(_score);
         SetLifeText(_life);
-        SetHighScoreText(highScore);
+        SetHighScoreText(_highScore);
 
         _restartButton.SetActive(false);
+        _NextButton.SetActive(false);
 
         _textScore = GameObject.Find("Score").GetComponent<Text>();
         _textLife = GameObject.Find("BallLife").GetComponent<Text>();
@@ -73,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void SetHighScoreText(int highScore)
     {
-        _textHighScore.text = "High Score :" + highScore.ToString();
+        _textHighScore.text = "High Score:" + highScore.ToString();
     }
 
     private void SetScoreText(int score)
@@ -109,21 +112,22 @@ public class GameManager : MonoBehaviour
             {
                 audioSource.PlayOneShot(clearSound);
 
-                int scorePoint = _score * 5;
+                int scorePoint = _score * 2;
                 int scoreBall = _life * 1000; // スコア計算
                 int scoreTime = (int)(_leftTime * 100f); // 少数値を整数型に直します ( スコア計算
-                _textResultScore.text = "Score * 5 = " + scorePoint.ToString(); // 表示
+                _textResultScore.text = "Score * 2 = " + scorePoint.ToString(); // 表示
                 _textResultBall.text = "Ball * 1000 = " + scoreBall.ToString(); // 表示
                 _textResultTime.text = "Time * 100 = " +scoreTime.ToString(); // 表示
 
                 int totalScore = scorePoint + scoreBall + scoreTime; // トータル計算
                 _textResultTotal.text = "Total Score :" + totalScore.ToString();
 
-                if (highScore < totalScore) // 過去のハイスコアの値を上回っていたら
+                if (_highScore < totalScore) // 過去のハイスコアの値を上回っていたら
                 {
-                    highScore = totalScore; // ハイスコアを更新します（表示は次回のプレイ時から）
+                    _highScore = totalScore; // ハイスコアを更新します（表示は次回のプレイ時から）
                 }
 
+                _NextButton.SetActive(true);
                 _restartButton.SetActive(true);
                 _restart.enabled = true;
                 _textClear.enabled = true;
@@ -170,5 +174,19 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnClickMenuButton()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+    public void OnClickRetryButton()
+    {
+        SceneManager.LoadScene("MainScene1");
+    }
+
+    public void OnClickNextButton()
+    {
+        SceneManager.LoadScene("MainScene1");
     }
 }

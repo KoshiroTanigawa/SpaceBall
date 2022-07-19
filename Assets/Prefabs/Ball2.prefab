@@ -115,7 +115,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6241735841402484749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,6 @@ MonoBehaviour:
   sound02: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
   sound03: {fileID: 8300000, guid: 958408b32ccf3714ea02821877b0870c, type: 3}
   sound04: {fileID: 8300000, guid: c2fa2fea438ad4741bbe6b1ab23e6177, type: 3}
-  sound05: {fileID: 8300000, guid: 983424df6b7334c41861d080671d21b0, type: 3}
 --- !u!96 &4043601171583341715
 TrailRenderer:
   serializedVersion: 2
